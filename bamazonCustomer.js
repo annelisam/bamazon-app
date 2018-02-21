@@ -54,7 +54,7 @@ function userPurchase() {
                     console.log('We have ' + productInfo.stock_quantity + ' in stock! Placing an order now.');
 
                     var updateQuery = 'UPDATE products SET stock_quantity = ' + (productInfo.stock_quantity - quantity) + ' WHERE item_id = ' + item;
-                    console.log('updateQuery = ' + updateQuery);
+                    // console.log(updateQuery);
 
                     connection.query(updateQuery, function (err, data){
                         if(err) throw err;
