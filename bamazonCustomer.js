@@ -13,10 +13,10 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
     if (err) throw err;
-    runBamazon();
+    displayInventory();
 });
 
-function runBamazon() {
+function userPurchase() {
     inquirer
     .prompt ({
         name: "action",
@@ -28,9 +28,44 @@ function runBamazon() {
         connection.query(query, {action: answer.item_id}, function(err, res) {
 
                 console.log("ITEM ID: " + res[1].item_id + " || Name: " + res[1].product_name);
-        
-        runBamazon();
     
         });
     });
 }
+
+function displayInventory() {
+
+
+	queryStr = 'SELECT * FROM products';
+
+	connection.query(queryStr, function(err, data) {
+		if (err) throw err;
+
+		console.log('Existing Inventory: ');
+		console.log('...................\n');
+
+		var strOut = '';
+		for (var i = 0; i < data.length; i++) {
+			strOut = '';
+			strOut += 'Item ID: ' + data[i].item_id + '  ||  ';
+			strOut += 'Product Name: ' + data[i].product_name + '  ||  ';
+			strOut += 'Department: ' + data[i].department_name + '  ||  ';
+			strOut += 'Price: $' + data[i].price + '\n';
+
+			console.log(strOut);
+		}
+
+          console.log("---------------------------------------------------------------------\n");
+        
+          userPurchase();
+
+
+	})
+}
+
+
+function runBamazon() {
+
+    displayInventory();
+}
+
