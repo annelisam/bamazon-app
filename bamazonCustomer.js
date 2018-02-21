@@ -106,7 +106,7 @@ function displayInventory() {
 
         console.log(table.toString());
 
-          console.log("---------------------------------------------------------------------\n");
+          console.log("---------------------------------------------------------------------");
         
           userPurchase();
 
